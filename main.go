@@ -11,6 +11,9 @@ type ContaCorrente struct {
 
 func main() {
 	contaDoRenato := ContaCorrente{titular: "Renato", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}
+	contaDoRenato2 := ContaCorrente{titular: "Renato", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}
+	fmt.Println(contaDoRenato == contaDoRenato2) //true
+
 	contaDaBruna := ContaCorrente{"Bruna", 222, 112223, 200}
 	contaDoGuilherme := ContaCorrente{titular: "Guilherme", saldo: 150.5}
 
@@ -22,5 +25,13 @@ func main() {
 	contaDaCris = new(ContaCorrente)
 	contaDaCris.titular = "Cris"
 	contaDaCris.saldo = 500
+
+	var contaDaCris2 *ContaCorrente
+	contaDaCris2 = new(ContaCorrente)
+	contaDaCris2.titular = "Cris"
+	contaDaCris2.saldo = 500
+	fmt.Println(contaDaCris == contaDaCris2)   //false
+	fmt.Println(*contaDaCris == *contaDaCris2) //true
+
 	fmt.Println(*contaDaCris)
 }
