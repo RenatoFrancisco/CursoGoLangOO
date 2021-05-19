@@ -1,80 +1,47 @@
 package main
 
-import "fmt"
-
-type ContaCorrente struct {
-	titular       string
-	numeroAgencia int
-	numeroConta   int
-	saldo         float64
-}
-
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
-	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
-	if podeSacar {
-		c.saldo -= valorDoSaque
-		return "Sque realizado com sucesso"
-	} else {
-		return "Saldo insuficiente"
-	}
-}
-
-func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
-	if valorDoDeposito > 0 {
-		c.saldo += valorDoDeposito
-		return "Depósito realizado com sucesso", c.saldo
-	} else {
-		return "Valor do depósito menor que zero", c.saldo
-	}
-}
-
-func (c *ContaCorrente) transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
-	if valorDaTransferencia < c.saldo && valorDaTransferencia > 0 {
-		c.saldo -= valorDaTransferencia
-		contaDestino.Depositar(valorDaTransferencia)
-		return true
-	} else {
-		return false
-	}
-}
+import (
+	"banco/contas"
+	"fmt"
+)
 
 func main() {
-	contaDoRenato := ContaCorrente{titular: "Renato", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}
-	contaDoRenato2 := ContaCorrente{titular: "Renato", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}
+	contaDoRenato := contas.ContaCorrente{Titular: "Renato", NumeroAgencia: 589, NumeroConta: 123456, Saldo: 125.5}
+	contaDoRenato2 := contas.ContaCorrente{Titular: "Renato", NumeroAgencia: 589, NumeroConta: 123456, Saldo: 125.5}
 	fmt.Println(contaDoRenato == contaDoRenato2) //true
 
-	contaDaBruna := ContaCorrente{"Bruna", 222, 112223, 200}
-	contaDoGuilherme := ContaCorrente{titular: "Guilherme", saldo: 150.5}
+	contaDaBruna := contas.ContaCorrente{"Bruna", 222, 112223, 200}
+	contaDoGuilherme := contas.ContaCorrente{Titular: "Guilherme", Saldo: 150.5}
 
 	fmt.Println(contaDoRenato)
 	fmt.Println(contaDaBruna)
 	fmt.Println(contaDoGuilherme)
 
-	var contaDaCris *ContaCorrente
-	contaDaCris = new(ContaCorrente)
-	contaDaCris.titular = "Cris"
-	contaDaCris.saldo = 500
+	var contaDaCris *contas.ContaCorrente
+	contaDaCris = new(contas.ContaCorrente)
+	contaDaCris.Titular = "Cris"
+	contaDaCris.Saldo = 500
 
-	var contaDaCris2 *ContaCorrente
-	contaDaCris2 = new(ContaCorrente)
-	contaDaCris2.titular = "Cris"
-	contaDaCris2.saldo = 500
+	var contaDaCris2 *contas.ContaCorrente
+	contaDaCris2 = new(contas.ContaCorrente)
+	contaDaCris2.Titular = "Cris"
+	contaDaCris2.Saldo = 500
 	fmt.Println(contaDaCris == contaDaCris2)   //false
 	fmt.Println(*contaDaCris == *contaDaCris2) //true
 
 	fmt.Println(*contaDaCris)
 
-	contaDaSilvia := ContaCorrente{}
-	contaDaSilvia.titular = "Silvia"
-	contaDaSilvia.saldo = 500.
+	contaDaSilvia := contas.ContaCorrente{}
+	contaDaSilvia.Titular = "Silvia"
+	contaDaSilvia.Saldo = 500.
 
-	fmt.Println(contaDaSilvia.saldo)
+	fmt.Println(contaDaSilvia.Saldo)
 	fmt.Println(contaDaSilvia.Sacar(200))
-	fmt.Println(contaDaSilvia.saldo)
+	fmt.Println(contaDaSilvia.Saldo)
 
 	status, valor := contaDaSilvia.Depositar(1000)
 	fmt.Println(status, valor)
 
-	resultado := contaDaSilvia.transferir(100, contaDaCris)
-	fmt.Print(resultado, contaDaSilvia.saldo, contaDaCris.saldo)
+	resultado := contaDaSilvia.Transferir(100, contaDaCris)
+	fmt.Print(resultado, contaDaSilvia.Saldo, contaDaCris.Saldo)
 }
