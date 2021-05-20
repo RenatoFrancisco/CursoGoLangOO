@@ -49,3 +49,11 @@ func main() {
 	resultado := contaDaSilvia.Transferir(100, contaDaCris)
 	fmt.Print(resultado, contaDaSilvia.ObterSaldo(), contaDaCris.ObterSaldo())
 }
+
+func PagarConta(conta verificarConta, valorDoBoleto float64) {
+	conta.Sacar(valorDoBoleto)
+}
+
+type verificarConta interface {
+	Sacar(valor float64) string
+}
