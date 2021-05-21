@@ -1,4 +1,4 @@
-# [Go: Orientação a Objetos)
+# [Go: Orientação a Objetos](https://cursos.alura.com.br/course/go-lang-oo)
 
 ## Objetivos do Curso:
 
